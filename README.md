@@ -1,6 +1,6 @@
 # 营商标准化多智能体系统 · BE-MultiAgent
 
-> 一套面向「营商环境」主题赛事的**开源多智能体系统**——像豆包/自定义 GPT 一样，任何人都能下载、复制 System Prompt 到任意 AI 使用，也能一键部署到 GitHub。
+> 一套面向「营商环境」主题赛事的**开源多智能体系统**——像豆包/自定义 GPT 一样，可下载、复制 System Prompt 到 AI 使用，也能一键部署到 GitHub。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agents](https://img.shields.io/badge/agents-3-blue.svg)](agents/)
