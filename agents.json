@@ -1,0 +1,100 @@
+{
+  "system": "BE-MultiAgent",
+  "name": "营商标准化多智能体系统",
+  "version": "1.0.0",
+  "description": "面向营商环境主题赛事的开源多智能体系统：1 个主调度 + 2 个双模（参赛+评审）子智能体。",
+  "license": "MIT",
+  "disclaimer": "两赛事官方未公布细项权重评分表，rubric 权重为基于官方通知反推的建议版，请以主办方最终规则为准。",
+  "note_on_weights": "rubric 权重为建议版（suggested），字段 suffix _pct 表示百分比，可随主办方终版微调。",
+  "agents": [
+    {
+      "id": "main-orchestrator",
+      "name": "营商标准化多智能体 · 主调度",
+      "alias": ["@主调度"],
+      "role": "orchestrator",
+      "produces_content": false,
+      "file": "agents/main-orchestrator.md",
+      "prompt_file": "prompts/main-orchestrator.txt",
+      "routes_to": ["agent1-data-be", "agent2-sat-be"],
+      "entry_points": ["@主调度", "/参赛", "/评审", "/路演", "/联动"],
+      "hard_rules": [
+        "同一作品在同一赛道不得既做参赛指导又做该赛道评委（利益冲突拦截）",
+        "所有打分基于真实材料，缺数据索要，绝不编造指标",
+        "输出中文、结构化；先给路由结论，再给子Agent产物或联动报告"
+      ]
+    },
+    {
+      "id": "agent1-data-be",
+      "name": "营商数擎 DataBE",
+      "alias": ["@营商数擎"],
+      "role": "specialist",
+      "track": "数据要素赋能营商环境创新应用赛道",
+      "event": "2026 中国信息协会数据要素应用创新大赛",
+      "organizer": "中国信息协会（统一大市场工作委员会）",
+      "signup": "https://sjysds.ciia.org.cn",
+      "dual_mode": ["builder", "judge"],
+      "core_lever": "数据要素（共享/治理/授权运营）",
+      "builder_soul": "数据四问：数据从哪来 / 怎么治 / 如何赋能 / 机制如何闭环",
+      "topics": [
+        "治理机制创新",
+        "场景创新",
+        "高质量提升"
+      ],
+      "file": "agents/agent1-data-be.md",
+      "prompt_file": "prompts/agent1-data-be.txt",
+      "rubric": {
+        "scale": 100,
+        "suggested": true,
+        "dimensions": [
+          { "name": "数据要素应用深度", "weight_pct": 25 },
+          { "name": "创新性", "weight_pct": 20 },
+          { "name": "实效性与成效", "weight_pct": 25 },
+          { "name": "示范与可推广性", "weight_pct": 15 },
+          { "name": "材料与表达", "weight_pct": 15 }
+        ]
+      }
+    },
+    {
+      "id": "agent2-sat-be",
+      "name": "满意标尺 SatBE",
+      "alias": ["@满意标尺"],
+      "role": "specialist",
+      "track": "企业满意看营商创新实践挑战赛",
+      "event": "营在当下，感知未来——企业满意看营商创新实践挑战赛",
+      "organizer": "中国贸促会商业行业委员会、中国国际商会商业行业商会",
+      "signup": "http://www.chbeo.org.cn",
+      "dual_mode": ["builder", "judge"],
+      "core_lever": "企业满意度（感受/需求/效果导向）",
+      "builder_soul": "满意度锚点：必须提炼企业原话或场景化描述，缺则作品不成立",
+      "topics": [
+        "政务服务优化",
+        "助企服务与要素保障",
+        "法治监管与企业满意"
+      ],
+      "file": "agents/agent2-sat-be.md",
+      "prompt_file": "prompts/agent2-sat-be.txt",
+      "rubric": {
+        "scale": 100,
+        "suggested": true,
+        "dimensions": [
+          { "name": "政策符合与示范意义", "weight_pct": 15 },
+          { "name": "企业满意度导向", "weight_pct": 25 },
+          { "name": "创新性", "weight_pct": 15 },
+          { "name": "实效（可量化可感知）", "weight_pct": 25 },
+          { "name": "真实性与可核验", "weight_pct": 10 },
+          { "name": "示范性推广价值", "weight_pct": 5 },
+          { "name": "路演现场表现（仅答辩）", "weight_pct": 5 }
+        ]
+      }
+    }
+  ],
+  "scoring_linkage": {
+    "common_axis": "实效性/可量化成效（两表均为 25%，直接可比）",
+    "soul_dimensions": {
+      "agent1_unique": "数据要素应用深度（25%）",
+      "agent2_unique": "企业满意度导向（25%）"
+    },
+    "composite_default": "0.5 * A1 + 0.5 * A2（各自百分制总分，权重可调）",
+    "composite_weighted": "w1 * A1 + w2 * A2（w1 + w2 = 1）"
+  }
+}
