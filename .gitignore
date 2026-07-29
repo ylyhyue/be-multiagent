@@ -1,0 +1,15 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Dependency / build artifacts (if extended later)
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+
+# Local memory / workspace data (not part of the published repo)
+.workbuddy/
+*.log
+tmp/
